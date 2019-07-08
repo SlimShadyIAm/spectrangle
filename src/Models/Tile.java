@@ -6,6 +6,7 @@ public class Tile {
     private SideColor sideOne;
     private SideColor sideTwo;
     private SideColor sideThree;
+    private String sideEncoding;
     private Integer pointVal;
     private Integer rotation;
 
@@ -13,6 +14,8 @@ public class Tile {
         this.sideOne = sideOne;
         this.sideTwo = sideTwo;
         this.sideThree = sideThree;
+
+        this.sideEncoding = sideOne.toString() + sideTwo.toString() + sideThree.toString() + pointVal;
 
         this.rotation = 0;
         this.pointVal = pointVal;
@@ -24,6 +27,10 @@ public class Tile {
 
     public Integer getPointVal() {
         return this.pointVal;
+    }
+
+    public String getSideEncoding() {
+        return this.rotation + this.sideEncoding;
     }
 
     public void rotate() {
@@ -46,6 +53,8 @@ public class Tile {
 
     public static void main(String[] args) {
         Tile tile = new Tile(SideColor.R, SideColor.Y, SideColor.B, 5);
-        TileView.printVariations("UP", tile);
+        System.out.println(tile.getSideEncoding());
+        tile.rotate();
+        System.out.println(tile.getSideEncoding());
     }
 }
