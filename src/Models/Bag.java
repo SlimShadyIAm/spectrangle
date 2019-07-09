@@ -2,6 +2,7 @@ package Models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Bag {
     private List<Tile> tiles;
@@ -57,6 +58,17 @@ public class Bag {
 
 //        All white (joker, 1 point)
         tiles.add(new Tile(SideColor.W, SideColor.W, SideColor.W, 1));
+    }
 
+    public Tile getRandomTile() {
+        Random random = new Random();
+        int index = random.nextInt(this.tiles.size());
+        Tile tile = this.tiles.get(index);
+        tiles.remove(index);
+        return tile;
+    }
+
+    public void insertBackIntoBag(Tile tile) {
+        this.tiles.add(tile);
     }
 }
