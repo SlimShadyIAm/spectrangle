@@ -25,6 +25,10 @@ public class Board {
         return board;
     }
 
+    public boolean isBonusField(Integer index) {
+        return this.getValues().get(index) != 0;
+    }
+
     public List<Character> getVertical() {
         return vertical;
     }

@@ -30,9 +30,74 @@ public class Game {
         this.board.setIndex(sides[0].getChar(), sides[1].getChar(), sides[2].getChar(), tile.getPointVal(), index);
     }
 
-    public boolean validMove() {
+    public boolean validMove(Integer index, Tile tile) {
+        if (Utils.isValidField(index)) {
+            return false;
+        }
+
+        if (firstMove && this.getBoard().isBonusField((index))) {
+            return false;
+        } else if (firstMove && !this.getBoard().isBonusField(index)) {
+            return true;
+        }
+
         Board board = this.board.deepCopy();
-        return false;
+        return this.noOfMatchingSides(board, index, tile) != 0;
+    }
+
+    public Integer noOfMatchingSides(Board board, Integer index, Tile tile) {
+        int counter = 0;
+
+//        does a left field exist?
+        if (Utils.getLeftIndex(index) != -1) {
+            if (this.checkMatchingLeft(board, index)) {
+                counter++;
+            }
+        }
+//        does a right field exist?
+        if (Utils.getRightIndex(index) != -1) {
+            if (this.checkMatchingRight(board, index)) {
+                counter++;
+            }
+        }
+//        is this field upside down?
+        if (Utils.isUpsideDown(index)) {
+//            yes, let's check the tile above us
+            if (Utils.getUpIndex(index) != -1) {
+                if (this.checkMatchingUp(board, index)) {
+                    counter++;
+                }
+            }
+        } else {
+//            no, it's right side up, let's check under us
+            if (Utils.getDownIndex(index) != -1) {
+                if (this.checkMatchingDown(board, index)) {
+                    counter++;
+                }
+            }
+        }
+
+        return counter;
+    }
+
+    public boolean checkMatchingLeft(Board board, Integer index) {
+        int leftIndex = Utils.getLeftIndex(index);
+        return board.getRight().get(leftIndex) == board.getLeft().get(index);
+    }
+
+    public boolean checkMatchingRight(Board board, Integer index) {
+        int rightIndex = Utils.getRightIndex(index);
+        return board.getLeft().get(rightIndex) == board.getRight().get(index);
+    }
+
+    public boolean checkMatchingUp(Board board, Integer index) {
+        int upIndex = Utils.getUpIndex(index);
+        return board.getVertical().get(upIndex) == board.getVertical().get(index);
+    }
+
+    public boolean checkMatchingDown(Board board, Integer index) {
+        int downIndex = Utils.getDownIndex(index);
+        return board.getVertical().get(downIndex) == board.getVertical().get(index);
     }
 
     public Bag getBag() {
