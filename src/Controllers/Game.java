@@ -6,6 +6,7 @@ import Models.SideColor;
 import Models.Tile;
 import View.BoardView;
 import View.TileView;
+import Models.Utils;
 
 public class Game {
     private Board board;
