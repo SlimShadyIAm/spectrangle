@@ -2,6 +2,8 @@ package View;
 
 import Models.Tile;
 
+import java.util.ArrayList;
+
 public class TileView {
     public static String[] rightSideUpArray(Tile tile){
         String [] tileRepresentation = new String[6];
@@ -63,7 +65,7 @@ public class TileView {
         System.out.println(finalOutput);
     }
 
-    public static void printTile(String orientation, Tile tile) {
+    public static void printTileVariations(String orientation, Tile tile) {
         String[] tileRepresentation;
         if (orientation.equals("UP")) {
             tileRepresentation = TileView.rightSideUpArray(tile);
@@ -71,6 +73,23 @@ public class TileView {
         } else {
             tileRepresentation = TileView.upsideDownArray(tile);
         }
+        for (int i = 0; i < 6; i++) {
+            System.out.println(tileRepresentation[i]);
+        }
+        System.out.println();
+    }
+
+    public static void printHandVarations(String orientations, ArrayList<Tile> tileArrayList) {
+        String[] tileRepresentation = {};
+        for (int i = 0; i < tileArrayList.size();  i++) {
+            if (orientation.equals("UP")) {
+                tileRepresentation = TileView.rightSideUpArray(tileArrayList.get(i));
+
+            } else {
+                tileRepresentation = TileView.upsideDownArray(tileArrayList.get(i));
+            }
+        }
+
         for (int i = 0; i < 6; i++) {
             System.out.println(tileRepresentation[i]);
         }

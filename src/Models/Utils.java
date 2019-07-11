@@ -22,6 +22,14 @@ public class Utils {
         return Utils.isUpsideDown(Utils.getRow(index), Utils.getCol(index));
     }
 
+    public static String indexOrientation(int index) {
+        if (Utils.isUpsideDown(index)) {
+            return "UP";
+        } else {
+            return "DOWN";
+        }
+    }
+
     public static boolean isValidField(int index) {
         return index >= 0 && index < 36;
     }

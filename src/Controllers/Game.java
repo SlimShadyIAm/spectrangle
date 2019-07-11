@@ -26,9 +26,14 @@ public class Game {
         System.out.println(BoardView.getBoardString(this.board.getValues(), this.board.getVertical(), this.board.getLeft(), this.board.getRight()));
     }
 
-    public void makeMove(Tile tile, Integer index) {
+    public int makeMove(Tile tile, Integer index) {
         SideColor[] sides = tile.getSides();
-        this.board.setIndex(sides[0].getChar(), sides[1].getChar(), sides[2].getChar(), tile.getPointVal(), index);
+        if (this.validMove(index, tile)) {
+            this.board.setIndex(sides[0].getChar(), sides[1].getChar(), sides[2].getChar(), tile.getPointVal(), index);
+            return Math.max(1, noOfMatchingSides(this.getBoard(), index, tile)) * tile.getPointVal() * this.getBoard().getBonuses().get(index);
+        } else {
+            return -1;
+        }
     }
 
     public boolean validMove(Integer index, Tile tile) {
